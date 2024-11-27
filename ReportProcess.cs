@@ -42,6 +42,11 @@ namespace HtmlReport
 
         }
 
+        public void PrintReport(string content, double width, double height, string PrinterDeviceName)
+        {
+            byte[] pdf = GetPDF(content, width, ref height, false, PaperMargins.None());
+            PrintPDF(PrinterDeviceName, 1, width, height, new MemoryStream(pdf));
+        }
 
 
         /// <summary>
@@ -224,7 +229,7 @@ namespace HtmlReport
             foreach (string printerName in PrinterSettings.InstalledPrinters)
             {
 
-                if (requiredPrinterName.ToUpper() == printerName)
+                if (requiredPrinterName.ToUpper() == printerName.ToUpper())
                 {
                     _isPrinterExists = true;
                     // Retrieve the printer settings.
